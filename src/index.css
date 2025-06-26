@@ -1,0 +1,244 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-70vh) scale(1);
+    opacity: 0;
+  }
+}
+
+.dot {
+  animation-name: float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+ @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes rotate-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out both;
+  }
+  
+  .animate-rotate-slow {
+    animation: rotate-slow 6s linear infinite;
+  }
+
+/* Base container for timeline */
+.hobbies-timeline-container {
+  position: relative;
+  margin: 0 auto;
+  padding-bottom: 50vh; /* Extra padding to allow scrolling to the last item */
+}
+
+/* Static background vertical line */
+.timeline-static-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px; /* Thickness of the line */
+  background-color: #3983fc4d; /* Light blue/transparent background line */
+  height: 100%;
+}
+
+/* Animated foreground vertical line */
+.timeline-animated-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 19px; /* Thickness of the animated line */
+  background-color: #3B82F6; /* Brighter blue for the animated part */
+  transition: height 0.3s ease-out; /* Smooth transition for height change */
+}
+
+/* Moving dot indicator */
+.timeline-moving-dot {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the dot */
+  width:25px;
+  height: 25px;
+  background-color: #3B82F6; /* Blue dot */
+  border-radius: 9999px; /* Circle */
+  border: 3px solid white; /* White border */
+  transition: top 0.3s ease-out; /* Smooth transition for vertical movement */
+  z-index: 20; /* Ensure it's above other elements if needed */
+}
+
+/* Individual Timeline Item Layout */
+.timeline-item-wrapper {
+  position: relative;
+  width: 100%; /* Take full width of parent hobbies-timeline-container */
+  display: flex; /* Use flexbox to arrange content and image */
+  align-items: flex-start; /* Align items to the top (important for vertical consistency) */
+  margin-bottom: 80px; /* Space between items */
+  min-height: 250px; /* Ensure enough vertical space for content */
+}
+
+/* Static dot on the main line for each item */
+.timeline-item-dot {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0); /* Center horizontally, align top of dot with wrapper top */
+  top: 0; /* Position at the very top of the timeline item wrapper */
+  width: 20px;
+  height: 20px;
+  background-color: #155aaf; /* Light blue color */
+  border-radius: 9999px;
+  z-index: 10;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Active item dot styling */
+.timeline-item-dot.active {
+  background-color: #ad48ff; /* Bright blue when active */
+}
+
+/* Horizontal line connecting dot to content */
+.timeline-horizontal-line {
+  position: absolute;
+  top: 5px; /* Adjust to align with the center of the static dot (half of 10px height) */
+  height: 2px;
+  background-color: #bfdbfe; /* Light blue */
+  z-index: 9;
+  transition: background-color 0.3s ease-in-out;
+}
+.timeline-horizontal-line.active {
+  background-color: #3B82F6; 
+  
+  /* Bright blue when active */
+}
+
+/* Content and Image containers - each takes half the space */
+.timeline-content-column, .timeline-image-column {
+  width: 50%;
+  padding: 0 30px; /* Padding to ensure space from center line */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Specific positioning for left/right cards and images */
+.timeline-item-right .timeline-content-column {
+  order: 2; /* Content on the right side */
+  text-align: left;
+}
+.timeline-item-right .timeline-image-column {
+  order: 1; /* Image on the left side */
+  display: flex;
+  justify-content: flex-end; /* Align image to the right within its column */
+}
+.timeline-item-right .timeline-horizontal-line {
+  left: 50%; /* Starts from center line */
+  width: 30px; /* Length of horizontal line */
+}
+
+.timeline-item-left .timeline-content-column {
+  order: 1; /* Content on the left side */
+  text-align: right;
+}
+.timeline-item-left .timeline-image-column {
+  order: 2; /* Image on the right side */
+  display: flex;
+  justify-content: flex-start; /* Align image to the left within its column */
+}
+.timeline-item-left .timeline-horizontal-line {
+  right: 50%; /* Starts from center line */
+  width: 30px; /* Length of horizontal line */
+}
+
+
+/* Styling for the content cards (glassmorphism) */
+.timeline-card {
+  background-color: rgba(255, 255, 255, 0.1); /* Transparent white */
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: 180px; /* Ensure cards have some height, adjust as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  color: white; /* Default text color for cards */
+}
+.timeline-card h3 {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  margin-bottom: 0.5rem;
+  color: #a78bfa; /* Example accent color for title */
+}
+.timeline-card p {
+  font-size: 1rem; /* text-base */
+  line-height: 1.5;
+  color: #e2e8f0; /* text-gray-200 */
+}
+
+.timeline-image {
+  max-width: 100%; /* Allow image to fill its container */
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments for mobile (single column layout) */
+@media (max-width: 768px) {
+  .timeline-static-line, .timeline-animated-line, .timeline-moving-dot {
+    left: 20px; /* Move line to left for mobile */
+    transform: none; /* Remove translateX centering */
+  }
+  .timeline-item-dot {
+    left: 20px;
+    transform: none;
+    top: 0; /* Keep at the top of the item */
+  }
+  .timeline-horizontal-line {
+    left: 20px; /* Align to the new left line position */
+    width: 30px; /* Short horizontal line */
+    right: auto; /* Remove right property for left alignment */
+    top: 5px; /* Align with dot center */
+  }
+  .timeline-item-wrapper {
+    flex-direction: column; /* Stack content and image vertically */
+    align-items: flex-start; /* Align all content to the left */
+    padding-left: 50px; /* Space for the vertical line and dot */
+    min-height: unset; /* Allow height to adjust for mobile */
+    margin-bottom: 60px; /* Adjust spacing */
+  }
+  /* Reset order and width for mobile so content comes first, then image */
+  .timeline-content-column, .timeline-image-column {
+    order: unset;
+    width: 100%; /* Take full width of the padded item wrapper */
+    padding: 0; /* Remove horizontal padding within these columns */
+    text-align: left; /* All text aligns left on mobile */
+  }
+  .timeline-image-column {
+    margin-top: 20px; /* Add space between card and image */
+    justify-content: flex-start; /* Ensure image is left-aligned on mobile */
+  }
+}
